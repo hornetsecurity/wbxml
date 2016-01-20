@@ -13,8 +13,12 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Data.Wbxml.Types
+                     , Data.Wbxml.Parser
+  other-modules:       Data.Wbxml.Tokens
   build-depends:       base >= 4.7 && < 5
+                     , transformers >= 0.4.2 && < 0.5
                      , bytestring >= 0.10.6 && < 0.11
+                     , attoparsec >= 0.12.1 && < 0.13
   default-language:    Haskell2010
   ghc-options:         -Wall
 
@@ -31,8 +35,10 @@ test-suite test-wbxml
   hs-source-dirs:      test
   main-is:             Main.hs
   other-modules:       Test.Types
+                     , Test.Parser
   build-depends:       base >= 4.7 && < 5
                      , bytestring >= 0.10.6 && < 0.11
+                     , attoparsec >= 0.12.1 && < 0.13
                      , tasty
                      , tasty-hunit
                      , wbxml
