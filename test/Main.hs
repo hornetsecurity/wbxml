@@ -6,6 +6,7 @@ import           Test.Parser
 import           Test.Printer
 import           Test.RoundtripBinary
 import           Test.Types
+import           Test.Xml
 
 main :: IO ()
 main = defaultMain $ testGroup "Data.Wbxml"
@@ -13,4 +14,5 @@ main = defaultMain $ testGroup "Data.Wbxml"
        , testParser
        , testPrinter
        , testRoundtripBinary
+       , testXml
        ]
