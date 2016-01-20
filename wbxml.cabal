@@ -14,6 +14,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     Data.Wbxml.Types
                      , Data.Wbxml.Parser
+                     , Data.Wbxml.Printer
   other-modules:       Data.Wbxml.Tokens
   build-depends:       base >= 4.7 && < 5
                      , transformers >= 0.4.2 && < 0.5
@@ -36,6 +37,7 @@ test-suite test-wbxml
   main-is:             Main.hs
   other-modules:       Test.Types
                      , Test.Parser
+                     , Test.Printer
   build-depends:       base >= 4.7 && < 5
                      , bytestring >= 0.10.6 && < 0.11
                      , attoparsec >= 0.12.1 && < 0.13
