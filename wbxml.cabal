@@ -12,8 +12,9 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib
+  exposed-modules:     Data.Wbxml.Types
   build-depends:       base >= 4.7 && < 5
+                     , bytestring >= 0.10.6 && < 0.11
   default-language:    Haskell2010
   ghc-options:         -Wall
 
@@ -29,8 +30,11 @@ test-suite test-wbxml
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
   main-is:             Main.hs
+  other-modules:       Test.Types
   build-depends:       base >= 4.7 && < 5
+                     , bytestring >= 0.10.6 && < 0.11
                      , tasty
+                     , tasty-hunit
                      , wbxml
   default-language:    Haskell2010
   ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
