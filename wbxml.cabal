@@ -1,7 +1,9 @@
 name:                wbxml
 version:             0.1.0.0
 synopsis:            Printing and parsing of WAP Binary XML
-description:         Please see README.md
+description:
+    This library provides data structures and functions to represent,
+    read, and write WAP Binary XML documents.
 license:             BSD3
 license-file:        LICENSE
 author:              Enno Cramer
