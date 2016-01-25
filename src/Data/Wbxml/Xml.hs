@@ -19,6 +19,7 @@ module Data.Wbxml.Xml
     , toXmlInstruction
     , toXmlNode
     , toXmlDocument
+    , decodeDocument
     , fromXmlString
     , fromXmlName
     , fromXmlAttribute
@@ -26,6 +27,7 @@ module Data.Wbxml.Xml
     , fromXmlInstruction
     , fromXmlNode
     , fromXmlDocument
+    , encodeDocument
     , segmentString
     ) where
 
@@ -182,6 +184,9 @@ toXmlDocument Document{..} = do
   epilogue <- pure []
   return $ XML.Document prologue root epilogue
 
+decodeDocument :: DocumentType -> (ByteString -> Except String Text) -> Document -> Either String XML.Document
+decodeDocument dt decText doc = runDecoder (toXmlDocument doc) (mkDecoderData dt decText (documentStrTable doc))
+
 encodeStringLookup :: ByteString -> Encoder Word32
 encodeStringLookup bs = do
   word <- gets (Map.lookup bs . encoderStrTable)
@@ -276,6 +281,9 @@ fromXmlDocument hdr XML.Document{..} = do
     where makeStrTable m = do
             let strs = map fst . sortOn snd . Map.toList $ m
             return $ StrTable . BS.concat . map (`BS.snoc` 0) $ strs
+
+encodeDocument :: DocumentType -> (Text -> Except String ByteString) -> Header -> XML.Document -> Either String Document
+encodeDocument dt encText hdr doc = evalEncoder (fromXmlDocument hdr doc) (mkEncoderData dt encText)
 
 segmentString :: Trie.Trie a -> ByteString -> [(ByteString, Maybe a)]
 segmentString _ "" = []
