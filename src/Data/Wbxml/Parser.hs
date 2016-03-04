@@ -17,6 +17,7 @@ module Data.Wbxml.Parser
     , processingInstruction
     , content
     , header
+    , strTable
     , document
     , wbxmlDocument
     ) where
@@ -162,8 +163,11 @@ content = AP.choice [ StrContent <$> str
 header :: Parser Header
 header = Header <$> version <*> publicId <*> charset
 
+strTable :: Parser StrTable
+strTable = StrTable <$> lenBytes
+
 document :: Parser Document
-document = Document <$> header <*> (StrTable <$> lenBytes) <*> element
+document = Document <$> header <*> strTable <*> element
 
 wbxmlDocument :: AP.Parser Document
 wbxmlDocument = fst <$> runStateT document initialParserState

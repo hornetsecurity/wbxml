@@ -20,6 +20,7 @@ module Data.Wbxml.Printer
     , processingInstruction
     , content
     , header
+    , strTable
     , document
     , wbxmlDocument
     ) where
@@ -163,9 +164,12 @@ header Header{..} = version headerVersion
     >> publicId headerPublicId
     >> charset headerCharset
 
+strTable :: StrTable -> Printer ()
+strTable StrTable{..} = lenBytes unStrTable
+
 document :: Document -> Printer ()
 document Document{..} = header documentHeader
-    >> lenBytes (unStrTable documentStrTable)
+    >> strTable documentStrTable
     >> element documentRoot
 
 wbxmlDocument :: Document -> Builder

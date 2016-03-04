@@ -170,5 +170,6 @@ testRoundtripBinary =
               , testProperty "ProcessingInstruction" (propRoundtripBinary Printer.processingInstruction Parser.processingInstruction)
               , testProperty "Content" (propRoundtripBinary Printer.content Parser.content)
               , testProperty "Header" (propRoundtripBinary Printer.header Parser.header)
+              , testProperty "StrTable" (propRoundtripBinary Printer.strTable Parser.strTable)
               , testProperty "Document" (propRoundtripBinary Printer.document Parser.document)
               ]
