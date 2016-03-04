@@ -26,20 +26,21 @@ module Data.Wbxml.DocumentType
     , specActiveSync
     ) where
 
-import           Control.Arrow      (first)
+import           Control.Arrow      ( first )
 
-import           Data.ByteString    (ByteString)
-import           Data.Text          (Text, append)
-import           Data.Text.Encoding (encodeUtf8)
-import           Data.Tuple         (swap)
-import           Data.Word          (Word32, Word8)
+import           Data.ByteString    ( ByteString )
+import           Data.Text          ( Text, append )
+import           Data.Text.Encoding ( encodeUtf8 )
+import           Data.Tuple         ( swap )
+import           Data.Word          ( Word32, Word8 )
 
 import qualified Data.Map           as Map
 import qualified Data.Trie          as Trie
 
-import           Data.Wbxml.Types   (CodepageReference (..))
+import           Data.Wbxml.Types   ( CodepageReference(..) )
 
 type Codepage a = [(Word8, a)]
+
 type Table a = [(Word8, Codepage a)]
 
 data Spec = Spec { specId         :: Maybe Word32
@@ -60,16 +61,18 @@ data DocumentType = DocumentType { docId                 :: Maybe Word32
                                  }
 
 fromSpec :: Spec -> DocumentType
-fromSpec Spec{..} = DocumentType{..}
-    where
-      docId = specId
-      docDoctype = specDoctype
-      docElements = tableToMap specElements
-      docAttributeStarts = tableToMap specAttrStarts
-      docAttributeValues = tableToMap specAttrValues
-      docRevElements = tableToRevMap specElements
-      docRevAttributeStarts = tableToTrie $ (map . fmap . map . fmap) (\(x, y) -> x `append` "=" `append` y) specAttrStarts
-      docRevAttributeValues = tableToTrie specAttrValues
+fromSpec Spec{..} = DocumentType { .. }
+  where
+    docId = specId
+    docDoctype = specDoctype
+    docElements = tableToMap specElements
+    docAttributeStarts = tableToMap specAttrStarts
+    docAttributeValues = tableToMap specAttrValues
+    docRevElements = tableToRevMap specElements
+    docRevAttributeStarts = tableToTrie $
+        (map . fmap . map . fmap) (\(x, y) -> x `append` "=" `append` y)
+                                  specAttrStarts
+    docRevAttributeValues = tableToTrie specAttrValues
 
 flatten :: Table a -> [(CodepageReference, a)]
 flatten = concatMap $ \(cid, page) -> map (first $ CodepageReference cid) page

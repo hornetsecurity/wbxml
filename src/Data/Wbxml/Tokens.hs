@@ -1,6 +1,6 @@
 module Data.Wbxml.Tokens where
 
-import           Data.Word (Word8)
+import           Data.Word ( Word8 )
 
 tokenSwitchPage :: Word8
 tokenSwitchPage = 0x00

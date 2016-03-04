@@ -1,4 +1,4 @@
-module Main (main) where
+module Main ( main ) where
 
 import           Test.Tasty
 
@@ -9,10 +9,11 @@ import           Test.Types
 import           Test.Xml
 
 main :: IO ()
-main = defaultMain $ testGroup "Data.Wbxml"
-       [ testTypes
-       , testParser
-       , testPrinter
-       , testRoundtripBinary
-       , testXml
-       ]
+main = defaultMain $
+    testGroup "Data.Wbxml"
+              [ testTypes
+              , testParser
+              , testPrinter
+              , testRoundtripBinary
+              , testXml
+              ]
