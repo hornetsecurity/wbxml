@@ -11,6 +11,12 @@ and XML, using the data types provided by the **xml-types** library.
 Well-known WAP Binary XML document types are defined in
 `Data.Wbxml.DocumentType`.
 
+If your're interested in an exciting career with Haskell have a look at our career page:
+
+https://www.hornetsecurity.com/de/karriere
+
+
+
 ## Usage
 
 ### Parsing
